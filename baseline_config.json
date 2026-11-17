@@ -1,0 +1,19 @@
+{
+  "model": "gpt2",
+  "dataset": "rtatman/blog-authorship-corpus",
+  "seed": 0,
+
+
+  "lr": 5e-5,
+  "weight_decay": 0.01,
+  "batch_size": 32,
+  "epochs": 1,
+  "max_length": 128,
+
+  "val_posts": 5000,
+  "log_every": 100,
+  "train_posts": 50000,
+  
+  "output_dir": "checkpoints/gpt2-blog"
+  
+}

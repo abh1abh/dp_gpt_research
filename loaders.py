@@ -1,7 +1,7 @@
-def collate(batch, tok): 
+def collate(batch, tok, max_length=512): 
     batch = [t + tok.eos_token for t in batch]
     enc = tok(batch,
-              truncation=True, max_length=128,
+              truncation=True, max_length=max_length,
               padding="longest",      # pad to the longest post in this batch
               return_tensors="pt")
     labels = enc.input_ids.clone()

@@ -8,9 +8,15 @@ def import_dataset(url="rtatman/blog-authorship-corpus"):
         path = kagglehub.dataset_download(url)
         df = pd.read_csv(os.path.join(path, "blogtext.csv"))
         os.makedirs("data", exist_ok=True)
+        df = clean(df)
         df.to_parquet(f"data/{url.replace('/', '_')}.parquet", index=False)
     else:
-        df = pd.read_parquet(f"data/{url.replace('/', '_')}.parquet")
+        df = clean(pd.read_parquet(f"data/{url.replace('/', '_')}.parquet"))
+    return df
+
+def clean(df):
+    df["text"] = df["text"].str.strip()
+    df = df[df["text"].str.len() > 0].drop_duplicates("text")
     return df
 
 def test_train_split(df):
